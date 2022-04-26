@@ -79,6 +79,13 @@ class Attimuitehoi
 			end
 		end
 	end
+	
+	def game_end
+		if @me == @enemy
+			return "end"
+		end
+		return ""
+	end
 end
 
 loop do
@@ -121,11 +128,11 @@ loop do
 		end
 	end
 	
-	puts "あっち向いて〜"
-	puts "0(上)1(下)2(左)3(右)"
-	input_a = gets.chomp
-	
-	loop do 
+	check = false
+	until check
+		puts "あっち向いて〜"
+		puts "0(上)1(下)2(左)3(右)"
+		input_a = gets.chomp
 		case input_a
 		when "0","1","2","3"
 			break
@@ -137,6 +144,11 @@ loop do
 	
 	result_attimuite = Attimuitehoi.new(input_a,rand(4),j_result)
 	result_attimuite.result_a
+	game_end = result_attimuite.game_end
 	
+	if game_end =="end"
+		puts "ゲームを終了します。"
+		break
+	end
 end
 
