@@ -1,3 +1,4 @@
+# 番号を文字に変える関数
 def janken(inp)
 	if inp == 0
 		data = "グー"
@@ -9,6 +10,7 @@ def janken(inp)
 	return data
 end
 
+# じゃんけんの勝ち負けを判定する関数
 def win_or_lose_j(me,enemy)
 	if me + 1 == enemy || (me == 2 && enemy == 0 )
 		return "you_win"
@@ -19,6 +21,7 @@ def win_or_lose_j(me,enemy)
 	end		
 end
 
+# じゃんけんの結果
 class Janken
 	def initialize(my_j_data,enemy_j_data)
 		@me_n = my_j_data.to_i
@@ -40,6 +43,21 @@ class Janken
 	end
 end
 
+# あっち向いてホイを表す関数
+def attimuitehoi(inp)
+	if inp == 0
+		data = "上"
+	elsif inp == 1
+		data = "下"
+	elsif inp == 2
+		data = "左"
+	else
+		data = "右"
+	end
+	return data
+end
+
+# あっちむいてほいの結果
 class Attimuitehoi
 	def initialize(my_a_data,enemy_a_data,win_or_lose_a)
 		@me_n = my_a_data.to_i
@@ -62,20 +80,6 @@ class Attimuitehoi
 		end
 	end
 end
-
-def attimuitehoi(inp)
-	if inp == 0
-		data = "上"
-	elsif inp == 1
-		data = "下"
-	elsif inp == 2
-		data = "左"
-	else
-		data = "右"
-	end
-	return data
-end
-
 
 loop do
 	puts "じゃんけん..."
@@ -109,7 +113,7 @@ loop do
 			janken = Janken.new(input_j,rand(3))
 			janken.result_j()
 			j_result = janken.win_or_lose()
-			if j_result = "draw"
+			if j_result == "draw"
 				next
 			else
 				break
@@ -120,6 +124,16 @@ loop do
 	puts "あっち向いて〜"
 	puts "0(上)1(下)2(左)3(右)"
 	input_a = gets.chomp
+	
+	loop do 
+		case input_a
+		when "0","1","2","3"
+			break
+		else
+			puts "もう一度入力してください"
+			next
+		end
+	end
 	
 	result_attimuite = Attimuitehoi.new(input_a,rand(4),j_result)
 	result_attimuite.result_a
